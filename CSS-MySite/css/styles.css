@@ -13,7 +13,8 @@ h1 {
     font-family: 'Sacramento', cursive;
     font-size: 5.625rem;
     margin: 50px auto 0 auto;
-    color: #66BFBF
+    color: #66BFBF;
+    line-height: 2;
 }
 
 h2 {
@@ -28,6 +29,11 @@ h3 {
     color: #11999E;
 }
 
+.annnew {
+    height: 200px;
+    width: 200px;
+}
+
 .top-container {
     background-color: #B3E8E5;
     position: relative;
@@ -38,6 +44,35 @@ h3 {
     position: absolute;
     left: 300px;
     bottom: 300px;
+}
+
+
+/*.code-skill-description {
+    clear: left;
+}*/
+
+.code-img {
+    width: 25%;
+    float: left;
+    margin-right: 30px;
+}
+
+.pc-img {
+    width: 25%;
+    float: right;
+    margin-left: 30px;
+}
+
+
+/*.pc-img-description {
+    clear: right;
+}*/
+
+.skill-row {
+    width: 50%;
+    margin: 100px auto 150px auto;
+    line-height: 2;
+    text-align: left;
 }
 
 .top-cloud {
