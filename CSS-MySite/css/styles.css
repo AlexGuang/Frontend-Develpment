@@ -2,6 +2,10 @@ a {
     color: #11999E;
 }
 
+a:hover {
+    color: #eaf6f6
+}
+
 body {
     margin: 0 0 0 0;
     text-align: center;
@@ -42,6 +46,7 @@ hr {
 
 p {
     color: #40514e;
+    line-height: 2;
 }
 
 .annnew {
@@ -59,7 +64,7 @@ p {
     -webkit-border-radius: 9;
     -moz-border-radius: 9;
     border-radius: 9px;
-    font-family: Arial;
+    font-family: 'Montserrat', sans-serif;
     color: #ffffff;
     font-size: 23px;
     padding: 10px 15px 10px 15px;
@@ -80,12 +85,12 @@ p {
     background-color: #66BFBF;
     margin: 100px 0 0 0;
     padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
 }
 
 .bottom-cloud {
     position: absolute;
-    left: 300px;
+    left: 250px;
     bottom: 300px;
 }
 
@@ -100,19 +105,32 @@ p {
     margin-right: 30px;
 }
 
-.contact-p {
-    margin-bottom: 100px;
+.contact-message {
+    width: 40%;
+    margin: 0 auto 100px auto;
 }
 
 .footer-p {
     color: #EAF6F6;
     margin-top: 30px;
+    font-size: 0.75rem;
+    margin-bottom: 0;
 }
 
 .footer-link {
+    color: #11999E;
     margin: 0 20px 200px 20px;
     text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.intro {
+    width: 30%;
+    margin: 0 auto;
+}
+
+.middle-container {
+    margin: 100px 0;
 }
 
 .pc-img {
@@ -129,13 +147,12 @@ p {
 .skill-row {
     width: 50%;
     margin: 100px auto 150px auto;
-    line-height: 2;
     text-align: left;
 }
 
 .top-cloud {
     position: absolute;
-    top: 50px;
+    top: 40px;
     right: 300px;
 }
 
