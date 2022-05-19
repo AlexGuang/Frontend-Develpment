@@ -9,6 +9,12 @@ h1 {
     font-weight: 900;
 }
 
+h2 {
+    font-family: 'Montserrat, sans-serif';
+    font-size: 3rem;
+    font-weight: bold;
+}
+
 #features {
     padding: 7% 15%;
 }
@@ -87,3 +93,36 @@ h1 {
 }
 
 .stack-icon {}
+
+
+/* Testimonial Section */
+
+#testimonials {
+    text-align: center;
+    background-color: #ef8172;
+    color: #fff;
+}
+
+.carousel-item {
+    padding: 7% 15%;
+}
+
+.testimonial-image {
+    width: 10%;
+    border-radius: 100%;
+    margin: 20px;
+}
+
+
+/* Press Section */
+
+#press {
+    background-color: #ef8172;
+    padding: 3%;
+    text-align: center;
+}
+
+.press-logo {
+    width: 15%;
+    margin: 20px 20px 50px;
+}
