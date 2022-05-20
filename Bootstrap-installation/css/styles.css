@@ -157,5 +157,50 @@ h2 {
 
 .pricing-collumn {
     margin: 5% auto;
-    padding: 0 30px;
+    padding: 0 0;
+}
+
+.pricing-h3 {
+    font-family: "montserrat";
+    font-weight: bold;
+}
+
+.price-out {
+    padding: 0 20px;
+}
+
+
+/* cta section */
+
+#cta {
+    background-color: #ff4c68;
+    text-align: center;
+    padding: 50px 15% 30px;
+}
+
+.cta-h3 {
+    font-family: "montserrat";
+    font-weight: bold;
+    color: #fff;
+    width: 50%;
+    margin: 10px auto;
+    line-height: 2;
+}
+
+
+/* footer section */
+
+#footer {
+    text-align: center;
+    margin: 100px auto 20px;
+    background-color: #fff;
+}
+
+.footer-icon {
+    margin: 30px 10px;
+}
+
+.footer-p {
+    color: #8f8f8f;
+    margin: 30px;
 }
