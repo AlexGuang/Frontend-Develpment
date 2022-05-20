@@ -15,8 +15,14 @@ h2 {
     font-weight: bold;
 }
 
+
+/*features section*/
+
 #features {
-    padding: 7% 15%;
+    padding: 7% 15% 0 15%;
+    background-color: #fff;
+    position: relative;
+    z-index: 1;
 }
 
 #title {
@@ -24,8 +30,29 @@ h2 {
     color: #fff;
 }
 
+
+/* Title Image */
+
+.title-image {
+    width: 22%;
+    transform: rotate(25deg);
+    position: absolute;
+    right: 20%;
+}
+
+@media (max-width: 990px) {
+    #title {
+        text-align: center;
+    }
+    .title-image {
+        position: static;
+        transform: rotate(0);
+        width: 60%;
+    }
+}
+
 .container-fluid {
-    padding: 3% 15%;
+    padding: 3% 15% 10%;
 }
 
 
@@ -84,14 +111,6 @@ h2 {
     color: #ff4c68;
 }
 
-
-/* Title Image */
-
-.title-image {
-    width: 60%;
-    transform: rotate(25deg);
-}
-
 .stack-icon {}
 
 
@@ -118,13 +137,14 @@ h2 {
 
 #press {
     background-color: #ef8172;
-    padding: 3%;
+    padding: 0 3%;
     text-align: center;
+    margin: 0;
 }
 
 .press-logo {
     width: 15%;
-    margin: 20px 20px 50px;
+    margin: 0 20px 10px;
 }
 
 
@@ -137,5 +157,5 @@ h2 {
 
 .pricing-collumn {
     margin: 5% auto;
-    width: 25%;
+    padding: 0 30px;
 }
