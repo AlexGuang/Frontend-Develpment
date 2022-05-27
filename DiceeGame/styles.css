@@ -19,6 +19,14 @@
     visibility: hidden;
 }
 
+.flag2 {
+    position: absolute;
+    right: 50px;
+    top: -30px;
+    height: 200px;
+    width: 200px;
+}
+
 body {
     background-color: #393E46;
 }

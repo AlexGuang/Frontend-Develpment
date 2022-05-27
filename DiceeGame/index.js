@@ -6,7 +6,8 @@ if (playOnePoint > playTwoPoint) {
     document.querySelector(".flag").style.visibility = "visible";
 } else if (playOnePoint < playTwoPoint) {
     document.querySelector("h1").textContent = "Player 2 wins!";
-    document.querySelector(".flag").style.visibility = "visible";
+    document.querySelector(".flag").classList.add("flag2");
+    document.querySelector(".flag").classList.remove("flag");
 
 } else {
     document.querySelector("h1").textContent = "There is no winner, refresh me!";
