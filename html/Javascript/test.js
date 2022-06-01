@@ -169,3 +169,31 @@ function divide(a, b) {
 function modulo(a, b) {
     return a % b;
 }
+
+//constructor functions
+var houseKeeper1 = {
+    experienceYears: 30,
+    name: "jane",
+    workedHotels: ["haha", "haha1", "lala"]
+
+}
+
+function HouseKeeper(yearsOfExperience, name, cleaningRepertoire) {
+    this.yearsOfExperience = yearsOfExperience,
+        this.name = name,
+        this.cleaningRepertoire = cleaningRepertoire
+    this.clean = function() {
+        alert("May I clean your room?");
+        alert("Clean the room");
+
+    }
+}
+var housekeeper2 = new HouseKeeper(2, "Marry", ["bathroom", "balcony", "lobby"]);
+
+function Bellboy(name, age, ifWorkRight, launguageSpeaks) {
+    this.name = name,
+        this.age = age,
+        this.ifWorkRight = ifWorkRight,
+        this.launguageSpeaks = launguageSpeaks
+}
+var bellboy1 = new Bellboy("Timmy", 19, true, ["English", "French"]);
