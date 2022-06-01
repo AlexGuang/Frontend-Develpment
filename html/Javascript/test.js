@@ -145,3 +145,27 @@ console.log(whosPaying(names));
 //Lyric of the song:99 bottle of beer
 console.log(numberBottles + " bottles of beer on the wall, " + numberBottles + " bottles of beer.");
 console.log("Take one down and pass it around, " + numberBottles - 1 + " bottles of beer on the wall");
+//Construct a calculator
+function calculator(a, b, operator) {
+    return operator(a, b);
+}
+
+function add(a, b) {
+    return a + b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function divide(a, b) {
+    return a / b;
+}
+
+function modulo(a, b) {
+    return a % b;
+}
