@@ -9,8 +9,8 @@
 </head>
 
 <body>
-    <h1 id="level-title">Press A Key to Start</h1>
-    <h2></h2>
+    <h1 class="level-title">Press A Key to Start</h1>
+    <h2 class="level-title"></h2>
     <div class="container">
         <div lass="row">
 
@@ -33,13 +33,16 @@
             </div>
 
         </div>
-        <p class="p1">1232</p>
-
-
-
+        <div class="showAnwser hidden">
+            <a href="#cheatSheet">Show Answer👇</a></div>
     </div>
+    <div id="cheatSheet" class="cheatSheet">
+        <h3 class="level-title">Cheat Sheet</h3>
+        <div class="showGame"></div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="index.js" charset="utf-8"></script>
+    <script src="game.js" charset="utf-8"></script>
 </body>
 
 </html>
