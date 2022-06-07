@@ -1,0 +1,20 @@
+{
+  "name": "weatherproject",
+  "version": "1.0.0",
+  "description": "This is my weather forcasting project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "weather",
+    "api",
+    "forcast",
+    "city"
+  ],
+  "author": "Alexander",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
