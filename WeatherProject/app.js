@@ -14,15 +14,16 @@ app.get("/", function(req, res) {
         response.on("data", function(data) {
             //console.log(data);
             var weatherData = JSON.parse(data);
+            //console.log(weatherData);
             var temp = weatherData.main.temp;
             var weatherDescription = weatherData.weather[0].description;
-            console.log(temp);
-            console.log(weatherDescription);
-            // var icon = weatherData.weather[0].icon;
-            // var imageURL = "http://openweathermap.org/img/wn/" + icon + "@2x"
-            //  console.log(imageURL);
+            //console.log(temp);
+            //console.log(weatherDescription);
+            var icon = weatherData.weather[0].icon;
+            var imageURL = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
+            console.log(imageURL);
             res.write("<h1>The city of " + weatherData.name + " is " + temp + " degree and its now " + weatherDescription + "</h1>");
-            //  res.write("<img src =" + imageURL + ">");
+            res.write("<img src =" + imageURL + ">");
             //res.send("The city of " + weatherData.name + " is " + temp + " degree and its now " + weatherDescription);
             res.send();
             //  app.send
