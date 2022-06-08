@@ -1,10 +1,22 @@
 const express = require("express");
 const https = require("https");
-
+const bodyParse = require("body-parse");
 const app = express();
+
+app.use(bodyParse.urlencodeed({ extended: true }));
 
 
 app.get("/", function(req, res) {
+
+    res.sendFile(__dirname + "/index.html");
+});
+
+
+app.post("/", function(request, response) {
+    console.log(response.body.cityName);
+})
+
+/*{
     //res.send("Server is up and running");
     var urlApi = "https://api.openweathermap.org/data/2.5/weather?q=Beijing&appid=172747710e80a10c8894d321db5f8180&units=metric";
 
@@ -29,9 +41,8 @@ app.get("/", function(req, res) {
             //  app.send
         })
     })
-});
 
-
+}*/
 
 
 
