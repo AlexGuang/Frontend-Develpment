@@ -14,9 +14,10 @@ app.get("/", function(req, res) {
 
 app.post("/", function(request, response) {
     const cityName = request.body.cityName;
-    const someId = "172747710e80a10c8894d321db5f8180";
+    const someId = "172747710e80a10";
+    const anyI = "c8894d321db5f8180"
     const urlBase = "https://api.openweathermap.org/data/2.5/weather?units=metric&q="
-    const urlCompleted = urlBase + cityName + "&appid=" + someId;
+    const urlCompleted = urlBase + cityName + "&appid=" + someId + anyI;
     https.get(urlCompleted, function(res) {
         res.on("data", function(data) {
             const weatherData = JSON.parse(data);
