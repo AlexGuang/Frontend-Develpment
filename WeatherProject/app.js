@@ -26,6 +26,8 @@ app.post("/", function(request, response) {
             const imageRL = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
             response.write("<h1>The city of " + weatherData.name + " is " + temp + " degree and its now " + weatherDescription + "</h1>");
             response.write("<img src =" + imageRL + ">");
+
+
             response.send();
         })
     })
