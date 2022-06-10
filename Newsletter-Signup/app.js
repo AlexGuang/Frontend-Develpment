@@ -38,7 +38,7 @@ app.post("/", function(req, res) {
     };
 
     client.setConfig({
-        apiKey: "89143ad6f48cfa20268cf8a3e3695639-us11",
+        apiKey: "409e15a2babc160-us11",
         server: "us11",
     });
 
@@ -56,9 +56,9 @@ app.post("/", function(req, res) {
         });
         console.log(response);
         if (response.error_count !== 0) {
-            res.send("<h1>有错误，请重新输入</h1>");
+            res.sendFile(__dirname + "/success.html");
         } else {
-            res.send("<h1>输入成功</h1>");
+            res.sendFile(__dirname + "/failure.html");
         }
     };
 
@@ -67,7 +67,7 @@ app.post("/", function(req, res) {
     /*const jsonData = JSON.stringify(data);
     const options = {
         method: "POST",
-        auth: "alex1:89143ad6f48cfa20268cf8a3e3695639-us11"
+        auth: ""
 
     }
     const request = https.request(url, options, function(respons) {
@@ -80,7 +80,9 @@ app.post("/", function(req, res) {
     request.write(jsonData);
     request.end;*/
 });
-
+app.get("success.html", function(res, req) {
+    req.sendFile(__dirname + "/signup.html");
+})
 
 app.listen(3000, function() {
     console.log("The Server is running on port 3000");
@@ -94,4 +96,4 @@ app.listen(3000, function() {
 
 
 //Audience ID:321e1e4555
-//API Key 89143ad6f48cfa20268cf8a3e3695639-us11
+//API Key
