@@ -38,7 +38,7 @@ app.post("/", function(req, res) {
     };
 
     client.setConfig({
-        apiKey: "409e15a2babc160-us11",
+        apiKey: "",
         server: "us11",
     });
 
@@ -54,7 +54,7 @@ app.post("/", function(req, res) {
                 }
             }],
         });
-        console.log(response);
+        // console.log(response);
         if (response.error_count !== 0) {
             res.sendFile(__dirname + "/success.html");
         } else {
@@ -84,7 +84,7 @@ app.get("success.html", function(res, req) {
     req.sendFile(__dirname + "/signup.html");
 })
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
     console.log("The Server is running on port 3000");
 })
 
