@@ -6,9 +6,15 @@ const bodyParser = require("body-parser");
 const app = express();
 
 app.get("/", function(req, res) {
-    res.sendFile(__dirname + "/weekday.html");
-});
+    var today = new Date();
+    var currentDay = today.getDay();
+    if (currentDay === 0 || currentDay === 6) {
+        res.sendFile(__dirname + "/weekend.html");
+    } else {
+        res.sendFile(__dirname + "/weekday.html");
+    }
 
+});
 
 
 
