@@ -4,15 +4,49 @@ const bodyParser = require("body-parser");
 
 
 const app = express();
+app.set("view engine", "ejs")
 
 app.get("/", function(req, res) {
     var today = new Date();
     var currentDay = today.getDay();
-    if (currentDay === 0 || currentDay === 6) {
-        res.sendFile(__dirname + "/weekend.html");
-    } else {
-        res.sendFile(__dirname + "/weekday.html");
+    // if (currentDay === 0 || currentDay === 6) {
+    //     var day = "weekend";
+    // } else {
+    //     var day = "weekday";
+    // }
+    var day;
+    switch (currentDay) {
+        case 0:
+            day = "Sunday";
+            break;
+
+        case 1:
+            day = "Monday";
+            break;
+
+        case 2:
+            day = "Tuesday";
+            break;
+
+        case 3:
+            day = "Wednesday";
+            break;
+
+        case 5:
+            day = "Friday";
+            break;
+
+        case 6:
+            day = "Saturday";
+            break;
+
+
+
+        default:
+            console.log("error!")
+            break;
     }
+    res.render("list", { kindofDay: day });
 
 });
 
