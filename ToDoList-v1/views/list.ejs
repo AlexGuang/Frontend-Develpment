@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
@@ -10,13 +10,20 @@
 
 <body>
 
-    <% if( kindofDay === "Wednesday" ){  %>
-        <h1 style="color:green">It's
-            <%= kindofDay %> !</h1>
-        <% } else { %>
-            <h1 style="color:red">It's
-                <%= kindofDay %> !</h1>
+    <h1>
+        <%= kindofDay %>
+    </h1>
+    <ul>
+        <% for (var i = 0; i < toDoItems.length; i++){ %>
+            <li>
+                <%= toDoItems[i] %>
+            </li>
             <% } %>
+    </ul>
+    <form action="/" method="post">
+        <input type="text" name="toDoList">
+        <input type="submit" name="toDoSubmit">
+    </form>
 </body>
 
 </html>
