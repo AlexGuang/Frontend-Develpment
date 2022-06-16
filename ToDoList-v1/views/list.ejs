@@ -6,24 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
+    <div id="heading" class="box">
+        <h1>
+            <%= kindofDay %>
+        </h1>
+    </div>
 
-    <h1>
-        <%= kindofDay %>
-    </h1>
-    <ul>
+    <div class="box">
         <% for (var i = 0; i < toDoItems.length; i++){ %>
-            <li>
-                <%= toDoItems[i] %>
-            </li>
+            <div class="item">
+                <input type="checkbox">
+                <p>
+                    <%= toDoItems[i] %>
+                </p>
+            </div>
             <% } %>
-    </ul>
-    <form action="/" method="post">
-        <input type="text" name="toDoList">
-        <input type="submit" name="toDoSubmit">
-    </form>
+
+                <form action="/" method="post" class="item">
+                    <input type="text" placeholder="请输入新的计划" autocomplete="off" name="toDoList">
+                    <button type="submit" name="submitItem">+</button>
+                </form>
+    </div>
+    <footer>@Annnew 2022</footer>
+
 </body>
 
 </html>

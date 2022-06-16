@@ -8,9 +8,10 @@ const app = express();
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 
-var items = [];
+var items = ["学前端", "到前屋接水", "做饭", "吃饭"];
 
 app.get("/", function(req, res) {
     var today = new Date();
