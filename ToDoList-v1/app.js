@@ -11,17 +11,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
-var items = ["学前端", "到前屋接水", "做饭", "吃饭"];
+let items = ["学前端", "到前屋接水", "做饭", "吃饭"];
+let workItems = ["做网页"];
 
 app.get("/", function(req, res) {
-    var today = new Date();
-    var currentDay = today.getDay();
+    let today = new Date();
+    let currentDay = today.getDay();
     // if (currentDay === 0 || currentDay === 6) {
     //     var day = "weekend";
     // } else {
     //     var day = "weekday";
     // }
-    var options = {
+    let options = {
         weekday: "long",
         year: "numeric",
         month: "long",
@@ -29,14 +30,27 @@ app.get("/", function(req, res) {
     }
 
     day = today.toLocaleDateString("zh-CN", options)
-    res.render("list", { kindofDay: day, toDoItems: items });
+    res.render("list", { pageTitle: day, toDoItems: items });
 
 });
 app.post("/", function(req, res) {
-    var item = req.body.toDoList;
-    items.push(item);
-    res.redirect("/");
+    console.log(req.body);
+    if (req.body.submitItem === "Work") {
+        let workItem = req.body.toDoItem;
+        workItems.push(workItem);
+        res.redirect("/work");
+    } else {
+        let item = req.body.toDoItem;
+        items.push(item);
+        res.redirect("/");
+    }
+
 })
+app.get("/work", function(req, res) {
+    res.render("list", { pageTitle: "Work List", toDoItems: workItems });
+});
+
+
 
 
 

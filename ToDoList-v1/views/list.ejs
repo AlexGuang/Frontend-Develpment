@@ -12,7 +12,7 @@
 <body>
     <div id="heading" class="box">
         <h1>
-            <%= kindofDay %>
+            <%= pageTitle %>
         </h1>
     </div>
 
@@ -27,8 +27,8 @@
             <% } %>
 
                 <form action="/" method="post" class="item">
-                    <input type="text" placeholder="请输入新的计划" autocomplete="off" name="toDoList">
-                    <button type="submit" name="submitItem">+</button>
+                    <input type="text" placeholder="请输入新的计划" autocomplete="off" name="toDoItem">
+                    <button type="submit" name="submitItem" value= <%= pageTitle %> >+</button>
                 </form>
     </div>
     <footer>@Annnew 2022</footer>
