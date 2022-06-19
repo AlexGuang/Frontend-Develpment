@@ -2,4 +2,9 @@
 <h1>HOME</h1>
 
 <p><%= homeStartingContentPara %> </p>
+<% postsDaily.forEach(function(post){ %>
+    <h1><%= post.title %></h1>
+   
+    <p><%= post.postBody %> </p>
+    <%  }); %>
 <%- include("partials/footer"); -%> 

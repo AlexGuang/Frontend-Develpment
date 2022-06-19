@@ -16,8 +16,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 
+const posts =[];
+
+
 app.get("/",function(req,res){
-  res.render("home",{homeStartingContentPara:homeStartingContent});
+  res.render("home",{homeStartingContentPara:homeStartingContent,postsDaily:posts});
 });
 
 
@@ -27,8 +30,15 @@ app.get("/about",function(req,res){
 app.get("/contact",function(req,res){
   res.render("contact",{contactPageContent:contactContent});
 });
-
-
+app.get("/compose",function(req,res){
+  res.render("compose");
+});
+app.post("/compose",function(req,res){
+  const newPost ={title:req.body.inputTitle,
+  postBody :req.body.textarea};
+  posts.push(newPost);
+  res.redirect("/");
+});
 
 
 
