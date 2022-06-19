@@ -20,7 +20,7 @@ const posts =[];
 
 
 app.get("/",function(req,res){
-  res.render("home",{homeStartingContentPara:homeStartingContent,postsDaily:posts});
+  res.render("home",{homeStartingContentPara:homeStartingContent});
 });
 
 
@@ -39,7 +39,19 @@ app.post("/compose",function(req,res){
   posts.push(newPost);
   res.redirect("/");
 });
-
+app.get("/posts/:topics",function(req,res){
+  console.log(req.params.topics);
+let pContents 
+posts.forEach(function(post){
+  if(post.title === req.params.topics){
+    pContents = post.postBody;
+    
+  }
+  
+  
+});
+res.render("blog",{pageTitle:req.params.topics,pageContentP:pContents});
+});
 
 
 
