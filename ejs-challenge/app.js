@@ -17,10 +17,11 @@ app.use(express.static("public"));
 
 
 const posts =[];
+let paraContents;
 
 
 app.get("/",function(req,res){
-  res.render("home",{homeStartingContentPara:homeStartingContent});
+  res.render("home",{homeStartingContentPara:homeStartingContent,postsArray:posts});
 });
 
 
@@ -41,16 +42,16 @@ app.post("/compose",function(req,res){
 });
 app.get("/posts/:topics",function(req,res){
   console.log(req.params.topics);
-let pContents 
+
 posts.forEach(function(post){
   if(post.title === req.params.topics){
-    pContents = post.postBody;
-    
+    paraContents = post.postBody;
+    res.render("blog",{pageTitle:req.params.topics,pageContentP:paraContents });
   }
   
   
 });
-res.render("blog",{pageTitle:req.params.topics,pageContentP:pContents});
+//
 });
 
 
