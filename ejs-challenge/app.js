@@ -21,7 +21,12 @@ app.get("/",function(req,res){
 })
 
 
-
+app.get("/about",function(req,res){
+  res.render("about",{aboutPageContent:aboutContent});
+});
+app.get("/",function(req,res){
+  res.render("contact",{contactPageContent:contactContent});
+});
 
 
 
