@@ -43,13 +43,13 @@ app.post("/compose",function(req,res){
 });
 app.get("/posts/:topics",function(req,res){
   console.log(req.params.topics);
-
-posts.forEach(function(post){
   let routerTopic = _.capitalize(_.camelCase(req.params.topics));
+posts.forEach(function(post){
+  
   let postTitle = _.capitalize(_.camelCase(post.title))
   if(routerTopic === postTitle){
     paraContents = post.postBody;
-    res.render("blog",{pageTitle:req.params.topics,pageContentP:paraContents });
+    res.render("blog",{pageTitle:post.title,pageContentP:paraContents });
   }
   
   
