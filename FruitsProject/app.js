@@ -1,3 +1,30 @@
+const
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const { MongoClient } = require("mongodb");
 
 // Replace the uri string with your MongoDB deployment's connection string.
@@ -11,7 +38,7 @@ async function run() {
     await client.connect();
 
     const database = client.db('fruitsDB');
-    const movies = database.collection('movies');
+    const movies = database.collection('fruits');
 
     // Query for a movie that has the title 'Back to the Future'
     const query = { title: 'Back to the Future' };
