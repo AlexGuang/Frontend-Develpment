@@ -1,4 +1,45 @@
-const
+const mongoose = require("mongoose");
+
+
+mongoose.connect("mongodb://127.0.0.1:27017/fruitsDB");
+
+const fruitSchema = new mongoose.Schema({
+    name:String,
+    rating:Number,
+    review: String
+
+});
+const Fruit = mongoose.model("Fruit",fruitSchema);
+const fruit = new Fruit({
+    name:"Apple",
+    rate:10,
+    review:"Pretty solid as a fruit."
+})
+
+fruit.save();
+
+
+
+
+
+
+
+
+
+const personSchema = new mongoose.Schema({
+    name:String,
+    age:Number
+});
+
+
+const Person = mongoose.model("Person",personSchema);
+
+const person = new Person({
+
+    name:"John",
+    age:89
+});
+person.save();
 
 
 
@@ -12,42 +53,3 @@ const
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-const { MongoClient } = require("mongodb");
-
-// Replace the uri string with your MongoDB deployment's connection string.
-const uri =
-  "mongodb://localhost:27017";
-
-const client = new MongoClient(uri);
-
-async function run() {
-  try {
-    await client.connect();
-
-    const database = client.db('fruitsDB');
-    const movies = database.collection('fruits');
-
-    // Query for a movie that has the title 'Back to the Future'
-    const query = { title: 'Back to the Future' };
-    const movie = await movies.findOne(query);
-
-    console.log(movie);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
