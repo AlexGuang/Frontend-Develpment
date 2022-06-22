@@ -25,18 +25,23 @@ const fruit = new Fruit({
 })
 
 //fruit.save();
-Fruit.updateOne({_id:"62b281cf1937489338c1435f"},{name:"Peach"},function(err){
-    if(err){
-        console.log(err);
-    }
-    else{
-        console.log("Succesfully updated the document.");
-    }
-});
+// Fruit.updateOne({_id:"62b281cf1937489338c1435f"},{name:"Peach"},function(err){
+//     if(err){
+//         console.log(err);
+//     }
+//     else{
+//         console.log("Succesfully updated the document.");
+//     }
+// });
 
 
 
+const pineApple = new Fruit({
 
+    name:"Pineapple",
+    rating:9,
+    review:"Absolute perfect fruit!"
+})
 
 
 
@@ -44,7 +49,9 @@ Fruit.updateOne({_id:"62b281cf1937489338c1435f"},{name:"Peach"},function(err){
 
 const personSchema = new mongoose.Schema({
     name:String,
-    age:Number
+    age:Number,
+    favorateFood:fruitSchema
+
 });
 
 
@@ -52,10 +59,20 @@ const Person = mongoose.model("Person",personSchema);
 
 const person = new Person({
 
-    name:"John",
-    age:89
+    name:"Amy",
+    age:23,
+    favorateFood:pineApple
 });
 person.save();
+
+Person.updateOne({name:"John"},{favorateFood:pineApple},function(err){
+    if(err){
+        console.log(err);
+    }
+    else{
+        console.log("succeffully updated!");
+    }
+})
 
 // const kiwi = new Fruit({
 //     name:"kiwi",
