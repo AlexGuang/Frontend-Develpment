@@ -1,3 +1,4 @@
+const { Db } = require("mongodb");
 const mongoose = require("mongoose");
 
 
@@ -41,7 +42,30 @@ const person = new Person({
 });
 person.save();
 
+const kiwi = new Fruit({
+    name:"kiwi",
+    rate:4,
+    review:"not very good"
+});
+const banana = new Fruit({
+    name:"banana",
+    rate:4,
+    review:"Not need wash,pretty good!"
+});
+const orange = new Fruit({
+    name:"orange",
+    rate:6,
+    review:"Contains good nutrition"
+});
+Fruit.insertMany([kiwi,banana,orange],function(err){
+    if(err){
+        console.log(err);
 
+    }
+    else{
+        console.log("The three fruits have been inserted to the Fruits");
+    }
+});
 
 
 
