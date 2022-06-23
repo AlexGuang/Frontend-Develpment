@@ -64,6 +64,19 @@ app.get("/", function(req, res) {
         }
     });   
 });
+app.post("/delete",function(req,res){
+    const itemDelete = req.body.checkbox;
+    Item.deleteOne({_id:itemDelete},function(err){
+        if(err){
+            console.log(err);
+        }
+        else{
+            
+            console.log("Successfully delete the item");
+            res.redirect("/");
+        }
+    });
+});
 app.post("/", function(req, res) {
     console.log(req.body);
     if (req.body.submitItem === "Work") {
