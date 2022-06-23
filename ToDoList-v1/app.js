@@ -38,27 +38,32 @@ const eating = new Item({
     name:"Eating"
 });
 
-// Item.insertMany([study,fetchWater,cook,eating], function(err){
-//     if(err){
-//         console.log(err);
-//     }
-//     else{
-//         console.log("Succefully launched!");
-//     }
-// });
-Item.find({},function(err,result){
-    console.log(result);
-});
+
+
 
 
 const workItems = ["做网页"];
 
-app.get("/", function(req, res) {
-    const day = data.getDate();
+app.get("/", function(req, res) {   
+
     Item.find({},function(err,result){
-        res.render("list", { pageTitle: day, toDoItems: result });
-    });
-   });
+        if(result.length === 0){
+            Item.insertMany([study,fetchWater,cook,eating], function(err){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("Succefully launched!");
+                }
+            });
+            res.redirect("/");
+        }
+        else{
+            const day = data.getDate();
+            res.render("list", { pageTitle: day, toDoItems: result });
+        }
+    });   
+});
 app.post("/", function(req, res) {
     console.log(req.body);
     if (req.body.submitItem === "Work") {
@@ -67,7 +72,16 @@ app.post("/", function(req, res) {
         res.redirect("/work");
     } else {
         let item = req.body.toDoItem;
-        items.push(item);
+        const newItem = new Item({
+            name: item
+        });
+        Item.insertMany([newItem],function(err){
+            if(err)
+            {console.log(err);}
+            else{
+                console.log("Successfully inserted.");
+            }
+        }) 
         res.redirect("/");
     }
 
