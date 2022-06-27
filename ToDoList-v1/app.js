@@ -39,9 +39,12 @@ const eating = new Item({
 });
 
 
+const listSchema =  mongoose.Schema({
+    name:String,
+    list:[itemSchema]
+})
 
-
-
+const List = mongoose.model("List",listSchema);
 const workItems = ["做网页"];
 
 app.get("/", function(req, res) {   
@@ -99,9 +102,36 @@ app.post("/", function(req, res) {
     }
 
 })
-app.get("/work", function(req, res) {
-    res.render("list", { pageTitle: "Work List", toDoItems: workItems });
+app.get("/:routers",function(req,res){
+    const routersGet = req.params.routers;
+    List.findOne({name:routersGet},function(err,list){
+        if (err)
+        {
+            console.log(err);
+        }
+        else if (list === null){
+            const newList = new List({
+                name: routersGet,
+                list:[study,fetchWater,cook]
+            });
+            newList.save();
+            res.redirect("/"+ routersGet);
+        }
+        else{
+            res.render("list",{pageTitle :routersGet,toDoItems:newList.list} )
+        }
+    })
+    const newList = new List({
+        name: routersGet,
+        list:[study,fetchWater,cook]
+    });
+    newList.save();
+    
+    
 });
+// app.get("/work", function(req, res) {
+//     res.render("list", { pageTitle: "Work List", toDoItems: workItems });
+// });
 app.get("/about",function(req,res){
     res.render("about");
 })
