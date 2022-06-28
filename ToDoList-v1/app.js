@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const data = require(__dirname + "/data.js");
 const mongoose = require("mongoose");
+const _ = require("lodash");
 
 
 
@@ -165,7 +166,7 @@ app.post("/", function(req, res) {
 
 });
 app.get("/:routers",function(req,res){
-    const routersGet = req.params.routers;
+    const routersGet = _.capitalize(req.params.routers) ;
     List.findOne({name:routersGet},function(err,list){
         if (err)
         {
