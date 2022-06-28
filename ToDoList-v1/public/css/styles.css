@@ -12,7 +12,7 @@ h1 {
 
 .box {
   max-width: 400px;
-  margin: 50px auto;
+  margin: 20px auto 50px auto;
   background: white;
   border-radius: 5px;
   box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
@@ -21,6 +21,7 @@ h1 {
 #heading {
   background-color: #A683E3;
   text-align: center;
+  margin: 0 auto;
 }
 
 .item {
@@ -88,7 +89,12 @@ input[type="text"]:focus {
   color: grey;
   opacity: 1;
 }
-
+.footer{
+  text-align: center;
+  color:#A683E3;
+  margin:0 auto;
+  padding:0;
+}
 footer {
   color: white;
   color: rgba(0, 0, 0, 0.5);

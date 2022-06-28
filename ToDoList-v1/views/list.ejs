@@ -6,6 +6,9 @@
             <%= pageTitle %>
         </h1>
     </div>
+    <h1 class="footer">
+        <%= pageTime %>
+    </h1>
    
 
     <div class="box">
@@ -14,6 +17,7 @@
                 <div class="item">
                     <form action="/delete" method="post">
                         <input type="checkbox" name="checkbox" value="<%= item._id %>" onChange="this.form.submit()">
+                        <input type="hidden" name="listName" value="<%= pageTitle %> ">
                     </form>
                     <p>
                             <%= item.name %> 

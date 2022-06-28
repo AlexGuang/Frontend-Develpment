@@ -11,6 +11,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 mongoose.connect("mongodb://127.0.0.1:27017/toDoList");
+const day = data.getDate();
 
 const itemSchema = new mongoose.Schema({
     name:{
@@ -62,13 +63,14 @@ app.get("/", function(req, res) {
             res.redirect("/");
         }
         else{
-            const day = data.getDate();
-            res.render("list", { pageTitle: day, toDoItems: result });
+            
+            res.render("list", { pageTitle:"Today",pageTime: day, toDoItems: result });
         }
     });   
 });
 app.post("/delete",function(req,res){
     const itemDelete = req.body.checkbox;
+    const itemTitle = req.body.listName;
     console.log(itemDelete);
     Item.deleteOne({_id:itemDelete},function(err){
         if(err){
@@ -144,7 +146,7 @@ app.get("/:routers",function(req,res){
             res.redirect("/"+ routersGet);
         }
         else{
-            res.render("list",{pageTitle :routersGet,toDoItems:list.list} )
+            res.render("list",{pageTitle :routersGet,pageTime: day,toDoItems:list.list} )
         }
     })
    
