@@ -69,6 +69,7 @@ app.get("/", function(req, res) {
 });
 app.post("/delete",function(req,res){
     const itemDelete = req.body.checkbox;
+    console.log(itemDelete);
     Item.deleteOne({_id:itemDelete},function(err){
         if(err){
             console.log(err);
@@ -82,33 +83,58 @@ app.post("/delete",function(req,res){
 });
 app.post("/", function(req, res) {
     console.log(req.body);
-    if (req.body.submitItem === "Work") {
-        let workItem = req.body.toDoItem;
-        workItems.push(workItem);
-        res.redirect("/work");
-    } else {
-        let item = req.body.toDoItem;
-        const newItem = new Item({
-            name: item
-        });
-        Item.insertMany([newItem],function(err){
-            if(err)
-            {console.log(err);}
-            else{
-                console.log("Successfully inserted.");
-            }
-        }) 
-        res.redirect("/");
-    }
+    const newItem = req.body.toDoItem;
+    const newTitle = req.body.submitItem;
+    List.findOne({name:newTitle},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else if(result === null){
+            console.log("haha kong");
+        }
+        else if(newItem === null){
+            res.redirect("/"+newTitle);
+        }
+        else
+        {
+               const item = new Item({
+                name:newItem
+               });
+           // console.log(result);
+            result.list.push(item);
+            result.save();
+            res.redirect("/"+req.body.submitItem);
+        }
+    });
+    // if (req.body.submitItem === "Work") {
+    //     let workItem = req.body.toDoItem;
+    //     workItems.push(workItem);
+    //     res.redirect("/work");
+    // } else {
+    //     let item = req.body.toDoItem;
+    //     const newItem = new Item({
+    //         name: item
+    //     });
+    //     Item.insertMany([newItem],function(err){
+    //         if(err)
+    //         {console.log(err);}
+    //         else{
+    //             console.log("Successfully inserted.");
+    //         }
+    //     }) 
+    //     res.redirect("/");
+    // }
 
-})
+});
 app.get("/:routers",function(req,res){
     const routersGet = req.params.routers;
     List.findOne({name:routersGet},function(err,list){
         if (err)
         {
             console.log(err);
+            console.log(list);
         }
+        
         else if (list === null){
             const newList = new List({
                 name: routersGet,
@@ -118,17 +144,15 @@ app.get("/:routers",function(req,res){
             res.redirect("/"+ routersGet);
         }
         else{
-            res.render("list",{pageTitle :routersGet,toDoItems:newList.list} )
+            res.render("list",{pageTitle :routersGet,toDoItems:list.list} )
         }
     })
-    const newList = new List({
-        name: routersGet,
-        list:[study,fetchWater,cook]
-    });
-    newList.save();
-    
-    
+   
 });
+   
+    
+    
+
 // app.get("/work", function(req, res) {
 //     res.render("list", { pageTitle: "Work List", toDoItems: workItems });
 // });
