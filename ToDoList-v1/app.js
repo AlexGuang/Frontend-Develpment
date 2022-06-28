@@ -69,45 +69,81 @@ app.get("/", function(req, res) {
     });   
 });
 app.post("/delete",function(req,res){
+   
+ 
     const itemDelete = req.body.checkbox;
-    const itemTitle = req.body.listName;
-    console.log(itemDelete);
-    Item.deleteOne({_id:itemDelete},function(err){
-        if(err){
-            console.log(err);
-        }
-        else{
-            
-            console.log("Successfully delete the item");
-            res.redirect("/");
-        }
-    });
+    const listName = req.body.listName;            
+    if(listName === "Today"){
+        console.log("yes");
+        Item.deleteOne({_id:itemDelete},function(err){
+            if(err){
+                console.log(err);
+            }
+            else{
+                
+                console.log("Successfully delete the item");
+                res.redirect("/");
+            }
+        });
+    }
+    else{
+        console.log("No");        
+        List.findOneAndUpdate({name:listName},{$pull:{
+            list:{_id:itemDelete}            
+        }},function(err,result){
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(result);
+                res.redirect("/"+listName);
+            }
+        });
+    }
+    
 });
 app.post("/", function(req, res) {
     console.log(req.body);
     const newItem = req.body.toDoItem;
     const newTitle = req.body.submitItem;
-    List.findOne({name:newTitle},function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else if(result === null){
-            console.log("haha kong");
-        }
-        else if(newItem === null){
-            res.redirect("/"+newTitle);
-        }
-        else
-        {
-               const item = new Item({
-                name:newItem
-               });
-           // console.log(result);
-            result.list.push(item);
-            result.save();
-            res.redirect("/"+req.body.submitItem);
-        }
-    });
+    if(newTitle ==="Today"){
+        const newPost = new Item({
+            name:newItem
+        });
+        Item.insertMany([newPost],function(err,result){
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log("Successfully inserted");
+                res.redirect("/");
+            }
+        })
+    }
+    else{
+        List.findOne({name:newTitle},function(err,result){
+            if(err){
+                console.log(err);
+            }
+            else if(result === null){
+                console.log("haha kong");
+            }
+            else if(newItem === null){
+                res.redirect("/"+newTitle);
+            }
+            else
+            {
+                   const item = new Item({
+                    name:newItem
+                   });
+               // console.log(result);
+                result.list.push(item);
+                result.save();
+                res.redirect("/"+req.body.submitItem);
+            }
+        });
+    }
+    
     // if (req.body.submitItem === "Work") {
     //     let workItem = req.body.toDoItem;
     //     workItems.push(workItem);
@@ -137,7 +173,7 @@ app.get("/:routers",function(req,res){
             console.log(list);
         }
         
-        else if (list === null){
+        else if (!list){
             const newList = new List({
                 name: routersGet,
                 list:[study,fetchWater,cook]
@@ -146,7 +182,7 @@ app.get("/:routers",function(req,res){
             res.redirect("/"+ routersGet);
         }
         else{
-            res.render("list",{pageTitle :routersGet,pageTime: day,toDoItems:list.list} )
+            res.render("list",{pageTitle :list.name,pageTime: day,toDoItems:list.list} )
         }
     })
    
