@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-mongoose.connect("mongodb://127.0.0.1:27017/toDoList");
+mongoose.connect("locolhost/toDoList");
 const day = data.getDate();
 
 const itemSchema = new mongoose.Schema({
