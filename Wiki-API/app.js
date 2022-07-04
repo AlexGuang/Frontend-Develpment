@@ -20,3 +20,10 @@ const articleSchema = mongoose.Schema({
     }
 });
 const Aticle = mongoose.model("Aticle",articleSchema);
+
+
+
+
+app.listen(3000,function(){
+    console.log("Successfully run the server on port 3000");
+})
