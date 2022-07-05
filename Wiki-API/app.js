@@ -15,10 +15,8 @@ app.set("view engine","ejs");
 app.use(express.static("public"));
 
 const articleSchema = mongoose.Schema({
-    title:{
-        type:String,
-        required:true
-    }
+    title:String,
+    content:String
 });
 const Article = mongoose.model("Article",articleSchema);
 
@@ -39,7 +37,10 @@ app.route("/articles")
             res.send("There is nothing found!");
         }
     });
-});
+})
+.post(function(req,res){
+    Article.insertMany([{title:req.body.title,}])
+})
 
 
 
