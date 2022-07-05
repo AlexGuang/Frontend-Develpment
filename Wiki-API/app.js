@@ -20,8 +20,26 @@ const articleSchema = mongoose.Schema({
         required:true
     }
 });
-const Aticle = mongoose.model("Aticle",articleSchema);
+const Article = mongoose.model("Article",articleSchema);
 
+
+// app.get("/articles",function(req,res){
+//     Article.find()
+// })
+
+app.route("/articles")
+.get(function(req,res){
+    Article.find(function(err,foundItems){
+        if(err){
+            console(err);
+        }else if(foundItems){
+            res.send(foundItems);
+        }
+        else{
+            res.send("There is nothing found!");
+        }
+    });
+});
 
 
 
