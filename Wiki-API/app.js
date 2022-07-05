@@ -99,8 +99,12 @@ app.route("/articles/:postedTitle")
     Article.deleteOne({
         title:req.params.postedTitle
     },function(err,doc){
-        if(!err){
+        console.log(doc);
+        if(doc&& doc.deletedCount){
             res.send("delete succefully!");
+        }
+        else{
+            res.send("err, no items found!");
         }
     });
 });
