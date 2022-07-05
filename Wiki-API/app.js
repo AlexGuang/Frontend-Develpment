@@ -56,6 +56,55 @@ app.route("/articles")
     })
 });
 
+app.route("/articles/:postedTitle")
+.get(function(req,res){
+   
+    Article.findOne({title:req.params.postedTitle},function(err,doc){
+        if(doc){
+            res.send(doc);
+        }else {
+            res.send("Nothing found!");
+        }
+    });   
+
+})
+.put(function(req,res){
+    Article.updateOne({title:req.params.postedTitle},
+        {title:req.body.title,content:req.body.content},
+        function(err,doc){
+            if(!err){
+                console.log("Update succefully!");
+                res.send("update succefully!");
+
+            }else{
+                console.log(err);
+            }
+        });
+})
+.patch(function(req,res){
+    Article.updateOne({
+        title:req.params.postedTitle
+    },{
+        $set:req.body
+    },function(err,doc){
+        if(!err){
+            console.log("update succefully!");
+            res.send("succefully! updated")
+        }else{
+            console.log(err);
+        }
+    })
+})
+.delete(function(req,res){
+    Article.deleteOne({
+        title:req.params.postedTitle
+    },function(err,doc){
+        if(!err){
+            res.send("delete succefully!");
+        }
+    });
+});
+
 
 
 app.listen(3000,function(){
