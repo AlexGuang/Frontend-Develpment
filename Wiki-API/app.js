@@ -39,8 +39,22 @@ app.route("/articles")
     });
 })
 .post(function(req,res){
-    Article.insertMany([{title:req.body.title,}])
+   
+    Article.insertMany([{title:req.body.title,content:req.body.content}],function(err,doc){
+        if(!err){
+            console.log("Insert succefully!");
+            res.send("insert successfully!");
+        }
+    });
+    
 })
+.delete(function(req,res){
+    Article.deleteMany(function(err,doc){
+        if(!err){
+            res.send("succeffule deletetd");
+        }
+    })
+});
 
 
 
