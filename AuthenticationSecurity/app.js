@@ -41,31 +41,26 @@ app.get("/register",function(req,res){
 app.get("/login",function(req,res){
     res.render("login");
 });
-app.post("/register",function(req,res){
-    res.render("submit");
-});
 
 
-app.post("/register",function(req,res){
-    console.log("hahah");
+app.post("/register",function(req,res){   
     const userNew = new User({
         email : req.body.username,
         password : req.body.password
     });
-    console.log(userNew);
+    
     userNew.save(function(err){
         if(err){
             console.log(err);
         }else{
-            console.log("1232421421");
-            console.log(userNew);
+            
             res.render("secrets");
         }
     });
    
 });
 
-app.post("login",function(req,res){
+app.post("/login",function(req,res){
     User.findOne({email:req.body.username},function(err,doc){
         if(err){
             console.log(err);
