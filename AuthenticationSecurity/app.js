@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
+const 
 
 
 
@@ -15,7 +16,7 @@ app.use(express.static("public"));
 
 
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     email:{
         type:String,
         required:true
