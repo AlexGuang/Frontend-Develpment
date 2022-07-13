@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const ejs = require("ejs");
 const encrypt = require("mongoose-encryption");
 const md5 = require("md5");
-const
+const bcrypt = require("bcrypt");
 
 
 
