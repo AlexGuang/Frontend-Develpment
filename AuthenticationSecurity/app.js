@@ -7,6 +7,7 @@ const ejs = require("ejs");
 const encrypt = require("mongoose-encryption");
 //const md5 = require("md5");
 //const bcrypt = require("bcrypt");
+const passport = require("passport");
 const passportLocal = require("passport-local");
 const session = require("express-session");
 const passportLocalMongoose = require("passport-local-mongoose");
@@ -32,12 +33,10 @@ mongoose.connect("mongodb://localhost:27017/HahaDB");
 
 const userSchema = new mongoose.Schema({
     email:{
-        type:String,
-        required:true
+        type:String
     },
     password:{
-        type:String,
-        required:true
+        type:String
     }
 });
 //const secret = process.env.SECRET;
@@ -66,30 +65,40 @@ app.get("/secrets",function(req,res){
         res.render("secrets");
     }
     else{
-        res.redirect("/");
+        res.redirect("/login");
     }
 })
 
 app.post("/register",function(req,res){   
-    const username = req.body.username;
-    const password =req.body.password;
 
-User.register({email:"username"},password,function(err,user){
+   // const username = req.body.username;
+   // const password =req.body.password;
+   // console.log(username);
+   // console.log(password);
+
+User.register({username:req.body.username},req.body.password,function(err,user){
     if(err){
-        res.redirect("/");
+        console.log("cuowu1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        console.log(err);
+        res.redirect("/register");
     }
     else{
-        const authenticate = User.authenticate();
-        authenticate(username,password,function(err,result){
-            if(err){
-                console.log(err);
-            }
-            else{
-                res.redirect("secrets");
-            }
-        })
+        passport.authenticate("local")(req,res,function(){
+            res.redirect("/secrets");
+        });
     }
-})
+        // const authenticate = User.authenticate();
+        // authenticate(req.body.username,req.body.password,function(err,result){
+        //     if(err){
+        //         console.log("cuowu2___________________________");
+        //         console.log(err);
+        //     }
+        //     else{
+        //         res.redirect("secrets");
+        //     }
+        })
+    
+
 
 
     //Below block code is bcrypt method
@@ -121,28 +130,59 @@ User.register({email:"username"},password,function(err,user){
 });
 
 app.post("/login",function(req,res){
-    const username = req.body.username;
-    const password = req.body.password;
-    User.findOne({email:username},function(err,doc){
+    const user = new User({
+        username:req.body.username,
+        password:req.body.password
+    })
+req.login(user,function(err){
+    if(err){
+        console.log(err);
+    }
+    else{
+        passport.authenticate("local")(req,res,function(){
+            res.redirect("secrets");
+        })
+    }
+}
+);
+
+
+app.get("/logout",function(req,res){
+    req.logout(function(err){
         if(err){
             console.log(err);
-        }else if (doc){
-            bcrypt.compare(password,doc.password,function(err,result){
-                if(result === true){
-                    res.render("secrets");
+        }else{
+            res.redirect("/");
+        }
+    });
+   
+});
 
-                }
+
+
+
+    // const username = req.body.username;
+    // const password = req.body.password;
+    // User.findOne({email:username},function(err,doc){
+    //     if(err){
+    //         console.log(err);
+    //     }else if (doc){
+    //         bcrypt.compare(password,doc.password,function(err,result){
+    //             if(result === true){
+    //                 res.render("secrets");
+
+    //             }
                        
             
-                else{
-                res.send("Your input is incorrect!");
-                }});
+    //             else{
+    //             res.send("Your input is incorrect!");
+    //             }});
             
-        }
-        else{
-            res.send("Not exist!");
-        }
-    })
+    //     }
+    //     else{
+    //         res.send("Not exist!");
+    //     }
+    // })
 })
 
 
