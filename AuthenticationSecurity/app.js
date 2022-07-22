@@ -47,7 +47,8 @@ const userSchema = new mongoose.Schema({
         type:String
     },
     googleId:String,
-    facebookId:String
+    facebookId:String,
+    secret:String
 
 });
 //const secret = process.env.SECRET;
@@ -132,7 +133,14 @@ app.get("/login",function(req,res){
 
 app.get("/secrets",function(req,res){
     if(req.isAuthenticated() ){
-        res.render("secrets");
+        User.find({"secret":{$ne:null}},function(err,foundUsers){
+            if(err){
+                console.log(err);
+            }else if(foundUsers){
+                res.render("secrets",{allUsers:foundUsers});
+            }
+        });
+        
     }
     else{
         res.redirect("/login");
@@ -205,19 +213,45 @@ app.post("/login",function(req,res){
         password:req.body.password
     });
 
-req.login(user,function(err){
-    if(err){
-        console.log(err);
-    }
-    else{
-        passport.authenticate("local")(req,res,function(){
-            res.redirect("secrets");
-        })
-    }
-}
-);
+    req.login(user,function(err){
+        if(err){
+            console.log(err);
+        }
+        else{
+            passport.authenticate("local")(req,res,function(){
+                res.redirect("/secrets");
+            })
+        }
+    });
 });
+app.get("/submit",function(req,res){
+    if(req.isAuthenticated){
+        res.render("submit");
+    }else{
+        res.redirect("/login");
+    }
+});
+app.post("/submit",function(req,res){
+    if(req.isAuthenticated){
+        const userSecret = req.body.secret;
+        console.log(req.user._id);
+        User.findById(req.user._id,function(err,foundUser){
+            if(err){
+                console.log(err);
+            }else if(foundUser){
+                foundUser.secret = userSecret;
+                foundUser.save(function(){
+                    res.redirect("/secrets");
+                });
+            }
+        })
+        
 
+    }else{
+        res.redirect("/login");
+    }
+
+})
 
 app.get("/logout",function(req,res){
     req.logout(function(err){
