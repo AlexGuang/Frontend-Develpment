@@ -1,5 +1,5 @@
 //jshint esversion:6
-//require("dotenv").config();
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -12,6 +12,7 @@ const passportLocal = require("passport-local");
 const session = require("express-session");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const findOrCreate = require("mongoose-findorcreate");
 
 
 
@@ -30,6 +31,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
+
+
+
 mongoose.connect("mongodb://localhost:27017/HahaDB");
 
 const userSchema = new mongoose.Schema({
@@ -38,25 +44,62 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type:String
-    }
+    },
+    googleId:String
+
 });
 //const secret = process.env.SECRET;
 //userSchema.plugin(encrypt,{secret:secret,encryptedFields:["password"]});
 
 userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
 
 const User = mongoose.model("User",userSchema);
 passport.use(User.createStrategy());
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+passport.use(new GoogleStrategy({
+    
+    clientID: process.env.CLIENT_ID,
+    clientSecret:process.env.CLIENT_KEY,
+    callbackURL: "http://localhost:3000/auth/google/secrets"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    console.log(profile);
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
 
 app.get("/",function(req,res){
     res.render("home");
 });
 app.get("/register",function(req,res){
     res.render("register");
+
 });
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+
+
+app.get('/auth/google/secrets', 
+passport.authenticate('google', { failureRedirect: '/login' }),
+function(req, res) {
+// Successful authentication, redirect home.
+res.redirect('/secrets');
+});
+
+
+
 app.get("/login",function(req,res){
     res.render("login");
 });
@@ -134,7 +177,8 @@ app.post("/login",function(req,res){
     const user = new User({
         username:req.body.username,
         password:req.body.password
-    })
+    });
+
 req.login(user,function(err){
     if(err){
         console.log(err);
@@ -146,6 +190,7 @@ req.login(user,function(err){
     }
 }
 );
+});
 
 
 app.get("/logout",function(req,res){
@@ -184,7 +229,7 @@ app.get("/logout",function(req,res){
     //         res.send("Not exist!");
     //     }
     // })
-})
+//})
 
 
 
