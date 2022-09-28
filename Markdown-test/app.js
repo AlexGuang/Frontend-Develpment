@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const marked = require("marked");
+const{ marked }= require("marked");
+
 const mongoose = require("mongoose");
 const createDomPurify = require("dompurify");
 const ejs = require("ejs");
@@ -13,12 +14,29 @@ app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
 
 mongoose.connect('mongodb://localhost:27017/markdownTestDB');
-blogschema = new mongoose.Schema({
+blogSchema = new mongoose.Schema({
     title:String,
-    content: String
+    content: String,
+    markdown:{
+        type:String,
+        required:true
+    },
+    sanitizedHtml:{
+        type:String,
+        required:true
+    }
 });
 
-const Blog = new mongoose.model("Blog",blogschema);
+blogSchema.pre("validate",function(next){
+    if(this.markdown){
+        this.sanitizedHtml = dompurify.sanitize(marked(this.markdown))
+    }
+
+    next();
+})
+
+
+const Blog = new mongoose.model("Blog",blogSchema);
 
 app.get("/", (req,res)=>{
     Blog.find({},(err,docs)=>{
@@ -32,7 +50,9 @@ app.get("/", (req,res)=>{
 app.post("/compose",(req,res)=>{
     const newBlog = {
         title:req.body.title,
-        content:req.body.content
+        content:req.body.content,
+        markdown:req.body.markdown
+
     };
     Blog.insertMany([newBlog],(err,doc)=>{
         if(err){

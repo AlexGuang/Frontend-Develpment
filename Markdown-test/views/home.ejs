@@ -10,9 +10,12 @@
     <h1>Welcome, fllowing are blogs</h1>
     <a href="/compose"><h2>Compose Blogs</h2></a>
     <% blogs.forEach((blog)=>{ %>
+        <p>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>
         <h2><%= blog.title %></h2>
         <a href="/blog/<%= blog._id %>">Read more</a>
-    
+       <div>
+        <%- blog.sanitizedHtml %> 
+       </div>
 
     <% }) %> 
 
